@@ -32,7 +32,7 @@ export async function registerSubscription(selectedCategories) {
     });
 
     //envio para o back
-    const response = await fetch('http://localhost:4000/api/user/preferences', {
+    const response = await fetch('/api/user/preferences', {
         method: 'PUT',
         headers: {
             'Content-Type': 'application/json',

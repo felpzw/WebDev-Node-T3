@@ -76,7 +76,7 @@ export default {
       try {
         // GET para buscar notícias baseadas no perfil do usuário
         // credentials: 'include' é ESSENCIAL para enviar o cookie de sessão
-        const res = await fetch('http://localhost:4000/api/news', {
+        const res = await fetch('/api/news', {
           method: 'GET',
           headers: { 'Content-Type': 'application/json' },
           credentials: 'include' 
@@ -123,7 +123,7 @@ export default {
 
     async logout() {
       try {
-        await fetch("http://localhost:4000/api/auth/logoff", { credentials: 'include' });
+        await fetch("/api/auth/logoff", { credentials: 'include' });
         localStorage.removeItem('user_categories');
         this.$router.push("/login");
       } catch (e) {
