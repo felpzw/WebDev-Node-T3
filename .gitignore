@@ -1,2 +1,8 @@
 /backend/keyGenerator.js
 /backend/node_modules
+.env
+.env.local
+*.log
+dist/
+build/
+.DS_Store
