@@ -2,7 +2,6 @@ require("dotenv").config();
 const express = require("express");
 
 const cookieParser = require("cookie-parser");
-const http = require("http");
 
 //cors necessario apenas para o debug e signin sem o carai do curl
 const cors = require("cors");
@@ -20,9 +19,9 @@ app.use(express.static(__dirname + "../frontend/public"));
 app.use(cookieParser()); 
 
 app.use("/api/auth", require("./src/api/routes/authRoutes.js"));
+app.use("/api/news", require("./src/api/routes/newsRoutes.js"));
 
-const httpServer = http.createServer(app);
-initSocketServer(httpServer);
+
 
 httpServer.listen(port, function () {
   console.log(`Servidor rodando na porta ${port}`);
