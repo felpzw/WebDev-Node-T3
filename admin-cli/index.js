@@ -1,11 +1,4 @@
-#!/usr/bin/env node
-// A linha acima (shebang) permite executar como ./noticia em Linux/Mac
 
-// Se estiver usando Node < 18, descomente a linha abaixo:
-// const fetch = require('node-fetch');
-
-// Captura os argumentos da linha de comando
-// O índice 0 é o node, o 1 é o script, 2 é a categoria, 3 é o conteúdo
 const categoria = process.argv[2];
 const conteudo = process.argv[3];
 const titulo = process.argv[4] || "Nova Notícia"; // Opcional: permitir título ou gerar automático
@@ -27,7 +20,7 @@ if (!categoriasValidas.includes(categoria.toLowerCase())) {
 }
 
 // Configuração do envio
-const SERVER_URL = 'http://localhost:3000/api/news/publish'; // Ajuste a porta se necessário
+const SERVER_URL = 'http://localhost:4000/api/news/publish'; // Ajuste a porta se necessário
 
 async function enviarNoticia() {
     try {
@@ -36,7 +29,8 @@ async function enviarNoticia() {
         const response = await fetch(SERVER_URL, {
             method: 'POST',
             headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                'x-admin-secret': 'adminsecret'
             },
             body: JSON.stringify({
                 title: titulo,

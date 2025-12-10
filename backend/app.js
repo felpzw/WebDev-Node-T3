@@ -17,13 +17,19 @@ app.use(express.json());
 app.use(cookieParser());
 
 
-app.use(express.static(path.join(__dirname, "../../frontend/public")));
+app.use(express.static(path.join(__dirname, "../frontend/dist")));
+
 
 app.use("/api/auth", require("./src/api/routes/authRoutes.js"));
 app.use("/api/news", require("./src/api/routes/newsRoutes.js"));
 app.use("/api/user", require("./src/api/routes/userRoutes.js"));
 
+//apenas o * deu problema
+app.get(/^(.*)$/, (req, res) => {
+  res.sendFile(path.join(__dirname, "../frontend/dist", "index.html"));
+});
+
 app.listen(port, function () {
   console.log(`Servidor rodando na porta ${port}`);
-  console.log(`Servindo arquivos estáticos de: ${path.join(__dirname, "../../frontend/public")}`);
+  console.log(`Servindo arquivos estáticos de: ${path.join(__dirname, "../frontend/dist")}`);
 });
