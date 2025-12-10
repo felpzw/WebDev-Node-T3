@@ -47,3 +47,22 @@ exports.createNews = async (req, res) => {
         res.status(500).json({ message: 'Erro ao processar notícia', error: error.message });
     }
 };
+
+exports.getMyNews = async (req, res) => {
+    try {
+        const username = req.username.username;
+
+        const user = await User.findOne({ username });
+        if (!user) return res.status(404).json({ message: "Usuário não encontrado" });
+
+        const news = await News.find({ 
+            context: { $in: user.categories } 
+        }).sort({ createdAt: -1 }); // Mais recentes primeiro
+
+        res.json(news);
+
+    } catch (error) {
+        console.error("Erro ao buscar notícias:", error);
+        res.status(500).json({ message: "Erro ao carregar feed" });
+    }
+};

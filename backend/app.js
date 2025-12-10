@@ -2,14 +2,17 @@ require("dotenv").config();
 const express = require("express");
 const cookieParser = require("cookie-parser");
 const cors = require("cors");
-const path = require("path"); // IMPORTANTE: Adicione isso
+const path = require("path");
 
 const app = express();
 
-const port = process.env.SERVER_PORT || 3000; // Fallback se não tiver no .env
+const port = process.env.SERVER_PORT || 4000;
 
 // Middlewares
-app.use(cors()); 
+app.use(cors({
+  origin: 'http://localhost:5173', 
+  credentials: true 
+}));
 app.use(express.json());
 app.use(cookieParser());
 

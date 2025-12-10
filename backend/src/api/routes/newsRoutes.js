@@ -12,5 +12,6 @@ const checkAdminAuth = (req, res, next) => {
 };
 
 router.post('/publish', checkAdminAuth, newsController.createNews);
+router.get('/', authUser, newsController.getMyNews);
 
 module.exports = router;
