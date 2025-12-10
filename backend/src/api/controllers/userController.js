@@ -7,17 +7,16 @@ exports.updatePreferences = async (req, res) => {
         const { categories, subscription } = req.body;
 
         if (!categories || !subscription) {
-            return res.status(400).json({ message: "Categorias e Subscription são obrigatórios." });
+            return res.status(400).json({ message: "Dados incompletos (categorias ou subscription)." });
         }
 
-        // Busca o usuário pelo username e atualiza os campos
         const updatedUser = await User.findOneAndUpdate(
             { username: username },
             { 
                 categories: categories, 
                 subscription: subscription 
             },
-            { new: true } 
+            { new: true }
         );
 
         if (!updatedUser) {
@@ -25,16 +24,10 @@ exports.updatePreferences = async (req, res) => {
         }
 
         console.log(`Preferências atualizadas para: ${username}`);
-        res.status(200).json({ 
-            message: 'Preferências atualizadas com sucesso!',
-            user: {
-                username: updatedUser.username,
-                categories: updatedUser.categories
-            }
-        });
+        res.status(200).json({ message: 'Inscrição de notícias atualizada com sucesso!' });
 
     } catch (error) {
-        console.error("Erro ao atualizar preferências:", error);
+        console.error("Erro ao salvar preferências:", error);
         res.status(500).json({ message: 'Erro interno ao salvar preferências.' });
     }
 };

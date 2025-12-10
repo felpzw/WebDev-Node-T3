@@ -2,7 +2,15 @@ const express = require('express');
 const router = express.Router();
 const newsController = require('../controllers/newsController');
 
+// Middleware simples para garantir que só o CLI acess
+const checkAdminAuth = (req, res, next) => {
+    const secret = req.headers['x-admin-secret'];
+    if (process.env.ADMIN_SECRET && secret !== process.env.ADMIN_SECRET) {
+         return res.status(403).json({ message: "Acesso proibido. Rota exclusiva de admin." });
+    }
+    next();
+};
 
-router.post('/publish', newsController.createNews);
+router.post('/publish', checkAdminAuth, newsController.createNews);
 
 module.exports = router;
