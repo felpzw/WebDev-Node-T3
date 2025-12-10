@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const newsController = require('../controllers/newsController');
+const authUser = require('../middleware/authUser');
 
 // Middleware simples para garantir que só o CLI acess
 const checkAdminAuth = (req, res, next) => {
