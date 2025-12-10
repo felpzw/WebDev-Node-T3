@@ -16,9 +16,9 @@ app.use(cookieParser());
 
 app.use(express.static(path.join(__dirname, "../../frontend/public")));
 
-app.use("/api/auth", require("./api/routes/authRoutes.js"));
-app.use("/api/news", require("./api/routes/newsRoutes.js"));
-app.use("/api/user", require("./api/routes/userRoutes.js"));
+app.use("/api/auth", require("./src/api/routes/authRoutes.js"));
+app.use("/api/news", require("./src/api/routes/newsRoutes.js"));
+app.use("/api/user", require("./src/api/routes/userRoutes.js"));
 
 app.listen(port, function () {
   console.log(`Servidor rodando na porta ${port}`);
